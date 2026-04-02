@@ -7,6 +7,7 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -21,9 +22,11 @@ jobs:
           lftp -u "u636715437.nadiasaad.com.br,$FTP_PASSWORD" ftp://147.93.64.87 <<'EOF'
           set ftp:passive-mode yes
           set ssl:verify-certificate no
-          set net:timeout 120
-          set net:max-retries 5
-          set net:reconnect-interval-base 5
+          set net:timeout 300
+          set net:max-retries 10
+          set net:reconnect-interval-base 3
+          set ftp:sync-mode false
+          set mirror:parallel-transfer-count 4
           mirror --reverse --delete --ignore-time --verbose \
             --exclude=".git/" \
             --exclude=".github/" \

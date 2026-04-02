@@ -1,0 +1,16 @@
+# Acervo Vivo — Next.js static export (output: export, trailingSlash: true)
+# Apache precisa desta configuração para servir /obras/00262/ como index.html
+
+Options -MultiViews -Indexes
+DirectoryIndex index.html
+
+# Ativa mod_rewrite
+RewriteEngine On
+
+# Se o caminho NÃO é um arquivo físico e NÃO termina em /, redireciona com /
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_URI} !/$
+RewriteRule ^(.+)$ /$1/ [L,R=301]
+
+# Charset padrão
+AddDefaultCharset UTF-8
