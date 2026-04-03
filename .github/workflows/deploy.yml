@@ -27,7 +27,7 @@ jobs:
           set net:reconnect-interval-base 3
           set ftp:sync-mode false
           set mirror:parallel-transfer-count 4
-          mirror --reverse --delete --ignore-time --verbose \
+          mirror --reverse --delete --transfer-all --verbose \
             --exclude=".git/" \
             --exclude=".github/" \
             --exclude="desktop.ini" \
