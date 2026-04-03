@@ -7,7 +7,7 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 60
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -26,8 +26,9 @@ jobs:
           set net:max-retries 10
           set net:reconnect-interval-base 3
           set ftp:sync-mode false
-          set mirror:parallel-transfer-count 4
-          mirror --reverse --delete --transfer-all --verbose \
+          set mirror:parallel-transfer-count 8
+          set mirror:use-pget-n 4
+          mirror --reverse --delete --verbose \
             --exclude=".git/" \
             --exclude=".github/" \
             --exclude="desktop.ini" \
